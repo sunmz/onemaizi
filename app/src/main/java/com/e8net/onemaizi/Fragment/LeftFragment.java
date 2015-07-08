@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.e8net.onemaizi.R;
 
@@ -40,11 +42,18 @@ public class LeftFragment extends Fragment
     private void initView(LayoutInflater inflater, ViewGroup container)
     {
         mView = inflater.inflate(R.layout.left_menu, container, false);
-        mCategories = (ListView) mView
-                .findViewById(R.id.id_listview_categories);
+        mCategories = (ListView) mView.findViewById(R.id.id_listview_categories);
         mAdapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.left_menu_item, mDatas);
         mCategories.setAdapter(mAdapter);
+
+        //注册监听事件
+        mCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), ""+position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
 
